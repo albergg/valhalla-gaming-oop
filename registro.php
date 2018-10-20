@@ -1,12 +1,19 @@
-<?php require_once 'registrer-controls.php';
-if ( isLogged() ) {
+<?php 
+
+	require_once 'registrer-controls.php';
+	require_once 'requires.php';
+
+	//use \VG\Forms\UserRegistrerForm;
+
+	if ( isLogged() ) {
 		header('location: perfil.php');
 		exit;
 	}
-	
- $tituloPagina = 'Registro | Valhalla Gaming'; 
- require_once 'partials/head.php';
- require_once 'partials/nav-bar.php';
+		
+	$tituloPagina = 'Registro | Valhalla Gaming'; 
+	require_once 'partials/head.php';
+	require_once 'partials/nav-bar.php';
+
  	$countries = [
 		'ar' => 'Argentina',		
 		'br' => 'Brasil',
@@ -17,26 +24,30 @@ if ( isLogged() ) {
 		'pe' => 'Perú',
 		'uy' => 'Uruguay',
         've' => 'Venezuela',
-        'ot' => 'Otro'
+        'xx' => 'Otro'
 	]; 
-	
-	// Persitencia de datos //
-	$userFullName = isset($_POST['userName']) ? trim($_POST['userName']) : '';
-	$userEmail = isset($_POST['userEmail']) ? trim($_POST['userEmail']) : '';
-	$userNameLogin = isset($_POST['username']) ? trim($_POST['username']) : '';
-	$userCountry = isset($_POST['userCountry']) ? trim($_POST['userCountry']) : '';
+
+	$form = new \VG\Forms\UserRegistrerForm ($_POST);
 	
 	$errors = [];
 
 	if ($_POST) {
-		$errors = validateRegistrerForm($_POST, $_FILES);
+		if ($form->isValid()) {
+			// creo un objeto de usuario
+			// creo un objeto de modelo
+			// le digo al modelo que guarde el user
+		}
+		$errors = $form->getErrors();
+		
+		// $errors = validateRegistrerForm($_POST, $_FILES);
+		/*
 		if ( count($errors) == 0 ) {
 			$imageName = saveImage($_FILES['userAvatar']);
 			$_POST['avatar'] = $imageName;
 			$user = saveUser($_POST);
 
 		}
-		
+		*/
 	}
 
 ?>
@@ -49,10 +60,10 @@ if ( isLogged() ) {
 							<form method="post" enctype="multipart/form-data">
 								<div class="form-group bg-dark rounded text-center ">
 									<label> Nombre Completo</label>
-									<input type="text" class="form-control  text-center <?= isset($errors['fullName']) ? 'is-invalid' : ''; ?>" name="userName" placeholder="Ingrese su nombre completo" value="<?= $userFullName; ?>">
-									<?php if (isset($errors['fullName'])): ?>
+									<input type="text" class="form-control  text-center <?= $form->fieldHasErrors('name') ? 'is-invalid' : ''; ?>" name="name" placeholder="Ingrese su nombre completo" value="<?= $form->getName(); ?>">
+									<?php if ($form->fieldHasErrors('name')): ?>
 									<div class="alert alert-danger">
-										<?= $errors['fullName'] ?>
+										<?= $form->getFieldErrors('name') ?>
 									</div>
 								<?php endif; ?>
 								</div>
@@ -61,10 +72,10 @@ if ( isLogged() ) {
 									<input 
 										type="email" 
 										class="form-control text-center <?= isset($errors['email']) ? 'is-invalid' : ''; ?>" 
-										name="userEmail" 
+										name="email" 
 										placeholder="Ingrese su email" 
 										
-										value="<?= $userEmail; ?>">
+										value="<?= $form->getEmail(); ?>">
 									<?php if (isset($errors['email'])): ?>
 									<div class="alert alert-danger">
 										<?= $errors['email'] ?>
@@ -73,7 +84,7 @@ if ( isLogged() ) {
 								</div>
 								<div class="form-group bg-dark rounded text-center ">
 									<label>Nombre de Usuario</label>
-									<input type="text" name="username" class="form-control text-center <?= isset($errors['username']) ? 'is-invalid' : ''; ?>"  placeholder="Ingrese su usuario" value="<?= $userNameLogin; ?>">
+									<input type="text" name="username" class="form-control text-center <?= isset($errors['username']) ? 'is-invalid' : ''; ?>"  placeholder="Ingrese su usuario" value="<?= $form->getUsername(); ?>">
 									<?php if (isset($errors['username'])): ?>
 									<div class="alert alert-danger">
 										<?= $errors['username'] ?>
@@ -100,13 +111,13 @@ if ( isLogged() ) {
 								</div>
 								<div class="form-group bg-dark rounded text-center ">
 									<label>Pais</label>
-									<select class="form-control text-center" name="userCountry" >
+									<select class="form-control text-center" name="countryCode" >
 										<option value=
 										"">Selecciona un pais</option>
 										<?php foreach ($countries as $code=>$country): ?>
 										<option 
-											<?= $code == $userCountry ? 'selected' : '' ?>
-										value="<?= $code ?>"><?=$country ?></option>
+											<?= $code == $form->getCountryCode() ? 'selected' : '' ?>
+										value="<?= $code ?>"><?= $country ?></option>
 										<?php endforeach; ?>
 									</select>
 									<?php if (isset($errors['country'])): ?>
