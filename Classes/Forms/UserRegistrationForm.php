@@ -94,11 +94,11 @@
             }
 
             // validacion de passwords
-            if ( empty($this->password) || empty($repeatPassword) ) {
+            if ( empty($this->password) || empty($this->repeatPassword) ) {
                 $this->errors['password'] = 'La contraseña no puede estar vacía';
-            } elseif ( $this->password != $repeatPassword) {
+            } elseif ( $this->password != $this->repeatPassword) {
                 $this->errors['password'] = 'Las contraseñas no coinciden';
-            } elseif ( strlen($this->password) < 4 || strlen($repeatPassword) < 4 ) {
+            } elseif ( strlen($this->password) < 4 || strlen($this->repeatPassword) < 4 ) {
                 $this->errors['password'] = 'La contraseña debe tener minimo 4 caracteres';
             }
 

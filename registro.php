@@ -102,7 +102,7 @@
 								</div>
 								<div class="form-group bg-dark rounded text-center"  data-toggle="tooltip" data-placement="top" title="La contraseña debe tener minimo de 4 caracteres">
 										<label>Repita la contraseña</label>
-										<input type="password" name="userRepeatPassword" class="form-control text-center <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" placeholder="Repita la contraseña">
+										<input type="password" name="repeatPassword" class="form-control text-center <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" placeholder="Repita la contraseña">
 										<?php if (isset($errors['password'])): ?>
 									<div class="alert alert-danger">
 										<?= $errors['password'] ?>

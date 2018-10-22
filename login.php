@@ -49,12 +49,11 @@
 						<div class="col-md-8">
 							<form method="post" enctype="multipart/form-data">
 								<div class="form-group bg-dark rounded text-center ">
-                                    <label>Correo Electronico</label>
-									<input 
-										type="email" 
-										class="form-control text-center <?= isset($errors['email']) ? 'is-invalid' : ''; ?>" 
+                    <label>Correo Electronico</label>
+									<input type="email" 
+									class="form-control text-center <?= isset($errors['email']) ? 'is-invalid' : ''; ?>" 
 										value="<?= $userEmailLogin; ?>"
-										name="userEmailLogin" 
+										name="email" 
 										placeholder="Ingrese su email">
 									<?php if (isset($errors['email'])): ?>
 									<div class="alert alert-danger">
@@ -70,7 +69,7 @@
 										<label>Contraseña</label>
 										<input 
 											type="password" 
-											name="userPasswordLogin" 
+											name="password" 
 											class="form-control text-center <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" 
 											placeholder="Ingrese la contraseña" >
 										<?php if (isset($errors['password'])): ?>
