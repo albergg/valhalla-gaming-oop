@@ -1,39 +1,40 @@
- <?php 
- require_once 'registrer-controls.php';
+<?php 
+require_once 'registrer-controls.php';
+require_once 'requires.php';
 
- if ( isLogged() ) {
-		header('location: perfil.php');
-		exit;
-	}
+use \VG\Forms\UserLoginForm;
 
- $tituloPagina = 'Login | Valhalla Gaming';
- require_once 'partials/head.php';
- require_once 'partials/nav-bar.php';
+if ( isLogged() ) {
+	header('location: perfil.php');
+	exit;
+}
 
+$tituloPagina = 'Login | Valhalla Gaming';
 
+$form = new UserLoginForm ($_POST);
 
-  	// Persitencia de datos //
-	$userEmailLogin = isset($_POST['userEmailLogin']) ? trim($_POST['userEmailLogin']) : '';
-	$userPasswordLogin = isset($_POST['userPasswordLogin']) ? trim($_POST['userPasswordLogin']) : '';
+$errors = [];
 
-  $errors = [];
+if ($_POST){
+	if ($form->isValid()) {
+			// creo un objeto de usuario
+			// creo un objeto de modelo
+			// le digo al modelo que guarde el user
+			$user = fetchByEmail($form->getEmail());
 
-	if ($_POST) {
-		$errors = validateLoginForm($_POST);
-
-		if ( count($errors) == 0) {
-			$user = fetchByEmail($_POST['userEmail']);
-
-			if( isset($_POST['rememberUser']) ) {
-				setcookie('userLogged', $_POST['userEmailLogin'], time() + 3600);
-			}
-
-			logIn($user);
+		if( $form->getRememberMe() ) {
+			setcookie('userLogged', $form->getEmail(), time() + 3600);
 		}
-    }
-    
-	?>
 
+		logIn($user);
+	}
+	$errors = $form->getErrors();
+}
+
+	
+?>
+<?php require_once 'partials/head.php'; ?>
+<?php require_once 'partials/nav-bar.php'; ?>
 <!-- Modal iniciar sesion-->
 <!-- <div class="modal fade" id="modalIniciarSesion" tabindex="-1" role="dialog" miModal>
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -52,7 +53,7 @@
                     <label>Correo Electronico</label>
 									<input type="email" 
 									class="form-control text-center <?= isset($errors['email']) ? 'is-invalid' : ''; ?>" 
-										value="<?= $userEmailLogin; ?>"
+										value="<?= $form->getEmail(); ?>"
 										name="email" 
 										placeholder="Ingrese su email">
 									<?php if (isset($errors['email'])): ?>

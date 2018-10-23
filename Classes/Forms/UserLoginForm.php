@@ -1,5 +1,5 @@
 <?php 
-namespace AFS\Forms;
+namespace VG\Forms;
 
 class UserLoginForm {
 
@@ -54,16 +54,48 @@ class UserLoginForm {
 
         // validacion de passwords
         if ( empty($this->password) ) {
-        $this->errors['password'] = 'La contraseña no puede estar vacía';
+             $this->errors['password'] = 'La contraseña no puede estar vacía';
         // } elseif ( $this->password != ?????/) {
         // $this->errors['password'] = 'Las contraseñas no coinciden';
         } elseif ( strlen($this->password) < 4) {
-        $this->errors['password'] = 'La contraseña debe tener minimo 4 caracteres';
+            $this->errors['password'] = 'La contraseña debe tener minimo 4 caracteres';
         }
 
         return empty($this->errors);
     }
-    
+
+        /**
+         * getters
+         */
+
+         public function getErrors(){
+             return $this->errors;
+         }
+         public function getEmail(){
+             return $this->email;
+         }
+         public function getPassword(){
+             return $this->password;
+         }
+         public function getRememberMe(){
+             return $this->rememberMe;
+         }
+         public function fieldHasErrors($field) {
+            return isset($this->errors[$field]);
+        } 
+
+        public function getFieldErrors($field) {
+            /*
+            if (isset($this->errors[$field])) {
+                return $this->errors[$field];
+            } else {
+                return false;
+            }
+            */
+            return $this->errors[$field] ?? false;
+        } 
+
+
 }
 
 

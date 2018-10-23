@@ -3,7 +3,7 @@
 	require_once 'registrer-controls.php';
 	require_once 'requires.php';
 
-	//use \VG\Forms\UserRegistrerForm;
+	use \VG\Forms\UserRegistrerForm;
 
 	if ( isLogged() ) {
 		header('location: perfil.php');
@@ -27,7 +27,7 @@
         'xx' => 'Otro'
 	]; 
 
-	$form = new \VG\Forms\UserRegistrerForm ($_POST);
+	$form = new UserRegistrerForm ($_POST);
 	
 	$errors = [];
 
@@ -60,7 +60,12 @@
 							<form method="post" enctype="multipart/form-data">
 								<div class="form-group bg-dark rounded text-center ">
 									<label> Nombre Completo</label>
-									<input type="text" class="form-control  text-center <?= $form->fieldHasErrors('name') ? 'is-invalid' : ''; ?>" name="name" placeholder="Ingrese su nombre completo" value="<?= $form->getName(); ?>">
+									<input type="text" 
+									class="form-control  text-center 
+									<?= $form->fieldHasErrors('name') ? 'is-invalid' : ''; ?>" 
+									name="name" 
+									placeholder="Ingrese su nombre completo" 
+									value="<?= $form->getName(); ?>">
 									<?php if ($form->fieldHasErrors('name')): ?>
 									<div class="alert alert-danger">
 										<?= $form->getFieldErrors('name') ?>
@@ -71,41 +76,53 @@
 									<label>Correo Electronico</label>
 									<input 
 										type="email" 
-										class="form-control text-center <?= isset($errors['email']) ? 'is-invalid' : ''; ?>" 
+										class="form-control text-center 
+										<?= $form->fieldHasErrors('email') ? 'is-invalid' : ''; ?>" 
 										name="email" 
-										placeholder="Ingrese su email" 
-										
+										placeholder="Ingrese su email"								
 										value="<?= $form->getEmail(); ?>">
-									<?php if (isset($errors['email'])): ?>
+									<?php if ($form->fieldHasErrors('email')): ?>
 									<div class="alert alert-danger">
-										<?= $errors['email'] ?>
+										<?= $form->getFieldErrors('email') ?>
 									</div>
 								<?php endif; ?>
 								</div>
 								<div class="form-group bg-dark rounded text-center ">
 									<label>Nombre de Usuario</label>
-									<input type="text" name="username" class="form-control text-center <?= isset($errors['username']) ? 'is-invalid' : ''; ?>"  placeholder="Ingrese su usuario" value="<?= $form->getUsername(); ?>">
-									<?php if (isset($errors['username'])): ?>
+									<input type="text" 
+									name="username" 
+									class="form-control text-center 
+									<?= $form->fieldHasErrors('username') ? 'is-invalid' : ''; ?>"  placeholder="Ingrese su usuario" 
+									value="<?= $form->getUsername(); ?>">
+									<?php if ($form->fieldHasErrors('username')): ?>
 									<div class="alert alert-danger">
-										<?= $errors['username'] ?>
+										<?= $form->getFieldErrors('username') ?>
 									</div>
 								<?php endif; ?>
 								</div>
 								<div class="form-group bg-dark rounded text-center" data-toggle="tooltip" data-placement="top" title="La contraseña debe tener minimo de 4 caracteres">
 										<label>Contraseña</label>
-										<input type="password" name="userPassword" class="form-control text-center <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" placeholder="Ingrese la contraseña" >
-										<?php if (isset($errors['password'])): ?>
+										<input type="password" 
+										name="userPassword" 
+										class="form-control text-center 
+										<?=$form->fieldHasErrors('password') ? 'is-invalid' : ''; ?>" 
+										placeholder="Ingrese la contraseña" >
+										<?php if ($form->fieldHasErrors('password')): ?>
 									<div class="alert alert-danger">
-										<?= $errors['password'] ?>
+										<?= $form->getFieldErrors('password') ?>
 									</div>
 								<?php endif; ?>
 								</div>
 								<div class="form-group bg-dark rounded text-center"  data-toggle="tooltip" data-placement="top" title="La contraseña debe tener minimo de 4 caracteres">
 										<label>Repita la contraseña</label>
-										<input type="password" name="repeatPassword" class="form-control text-center <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" placeholder="Repita la contraseña">
-										<?php if (isset($errors['password'])): ?>
+										<input type="password" 
+										name="repeatPassword" 
+										class="form-control text-center 
+										<?=$form->fieldHasErrors('password') ? 'is-invalid' : ''; ?>" 
+										placeholder="Repita la contraseña">
+										<?php if ($form->fieldHasErrors('password')): ?>
 									<div class="alert alert-danger">
-										<?= $errors['password'] ?>
+										<?= $form->getFieldErrors('password') ?>
 									</div>
 								<?php endif; ?>
 								</div>
@@ -120,20 +137,22 @@
 										value="<?= $code ?>"><?= $country ?></option>
 										<?php endforeach; ?>
 									</select>
-									<?php if (isset($errors['country'])): ?>
+									<?php if ($form->fieldHasErrors('country')): ?>
 									<div class="alert alert-danger">
-										<?= $errors['country'] ?>
+										<?= $form->getFieldErrors('country') ?>
 									</div>
 								<?php endif; ?>
 								</div>
 							<div class="form-group bg-dark rounded text-center">
 								<label>Imagen de perfil</label>
 								<div class="custom-file">
-									<input type="file" class="custom-file-input <?= isset($errors['image']) ? 'is-invalid' : ''; ?>" name="userAvatar">
+									<input type="file" 
+									class="custom-file-input 
+									<?=$form->fieldHasErrors('image') ? 'is-invalid' : ''; ?>" name="userAvatar">
 									<label class="custom-file-label">Selecciona una imagen</label>
-									<?php if (isset($errors['image'])): ?>
+									<?php if ($form->fieldHasErrors('image')): ?>
 										<div class="alert alert-danger">
-											<?= $errors['image'] ?>
+											<?= $form->getFieldErrors('image') ?>
 										</div>
 									<?php endif; ?>
 								</div>
