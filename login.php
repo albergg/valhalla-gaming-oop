@@ -52,13 +52,13 @@ if ($_POST){
 								<div class="form-group bg-dark rounded text-center ">
                     <label>Correo Electronico</label>
 									<input type="email" 
-									class="form-control text-center <?= isset($errors['email']) ? 'is-invalid' : ''; ?>" 
+									class="form-control text-center <?= $form->fieldHasErrors('email') ? 'is-invalid' : ''; ?>" 
 										value="<?= $form->getEmail(); ?>"
 										name="email" 
 										placeholder="Ingrese su email">
-									<?php if (isset($errors['email'])): ?>
+									<?php if ($form->fieldHasErrors('email')): ?>
 									<div class="alert alert-danger">
-										<?= $errors['email'] ?>
+										<?= $form->getFieldErrors('email') ?>
 									</div>
 								<?php endif; ?>
 								</div>
@@ -71,11 +71,11 @@ if ($_POST){
 										<input 
 											type="password" 
 											name="password" 
-											class="form-control text-center <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" 
+											class="form-control text-center <?= $form->fieldHasErrors('password') ? 'is-invalid' : ''; ?>" 
 											placeholder="Ingrese la contraseña" >
-										<?php if (isset($errors['password'])): ?>
+										<?php if ($form->fieldHasErrors('password')): ?>
 									<div class="alert alert-danger">
-										<?= $errors['password'] ?>
+										<?= $form->getFieldErrors('password') ?>
 									</div>
 								<?php endif; ?>
 								</div>

@@ -22,23 +22,39 @@
     </ul>
   </div>
 <?php 
-  	// Persitencia de datos //
-	$userEmailLogin = isset($_POST['userEmailLogin']) ? trim($_POST['userEmailLogin']) : '';
-	$userPasswordLogin = isset($_POST['userPasswordLogin']) ? trim($_POST['userPasswordLogin']) : '';
+//   	// Persitencia de datos //
+// 	$userEmailLogin = isset($_POST['userEmailLogin']) ? trim($_POST['userEmailLogin']) : '';
+// 	$userPasswordLogin = isset($_POST['userPasswordLogin']) ? trim($_POST['userPasswordLogin']) : '';
 
-  $errors = [];
-// se comenta ya que el modal no esta validando los datos.
-	// if ($_POST) {
-	// 	$errors = validateLoginForm($_POST);
-	// }
-	?>
-    <a class="btn btn-dark miBoton " href="registro.php" role="button">Registrarse</a>
+//   $errors = [];
+// // se comenta ya que el modal no esta validando los datos.
+// 	// if ($_POST) {
+// 	// 	$errors = validateLoginForm($_POST);
+// 	// }
+// 	?>
+
+			<?php if ( isLogged() ) : ?>
+				<li class="nav-item">
+					<a class="btn btn-dark miBoton" href="profile.php">
+						<img src="data/avatars/<?= $theUser['avatar'] ?>" width="40" style="border-radius: 50%;"> <?= $theUser['name'] ?>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="btn btn-dark miBoton" href="logout.php">Logout</a>
+				</li>
+			<?php else : ?>
+				<a class="btn btn-dark miBoton " href="registro.php" role="button">Registrarse</a>
+				<a class="btn btn-dark miBoton " href="login.php" role="button">Iniciar Sesion</a>
+			<?php endif; ?>
+
+
+    
 
   <!-- // se comenta ya que el modal no esta validando los datos. -->
 <!-- <button type="button" class="btn btn-dark miBoton " data-toggle="modal" data-target="#modalIniciarSesion">
   Iniciar Sesion
 </button> -->
-    <a class="btn btn-dark miBoton " href="login.php" role="button">Iniciar Sesion</a>
+    
 </nav>
 
 <!-- Modal iniciar sesion-->

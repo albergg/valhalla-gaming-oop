@@ -4,7 +4,52 @@
 // va a tener las responsabilidades de setear y verificar el password
 // objeto usuario
 
-// propiedades
+namespace VG\Entities;
+
+class User
+{
+    // propiedades
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $email;
+
+    /**
+     * @var string
+     */
+    private $username;
+
+    /**
+     * @var string
+     */
+    private $password;
+
+    /**
+     * @var string
+     */
+    private $country;
+
+    /**
+     * @var string
+     */
+    private $avatar;
+
+    
+}
+
+
+
+
 
 // metodo constructor, recibe los campos de un form valido
 

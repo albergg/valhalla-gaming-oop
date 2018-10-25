@@ -1,15 +1,19 @@
-<?php require_once 'registrer-controls.php';?>
-<?php $tituloPagina = 'Perfil | Valhalla Gaming'; ?>
-<?php require_once 'partials/head.php'?>
-<?php require_once 'partials/nav-bar.php'?>
-
+<?php require_once 'registrer-controls.php';
+require_once 'requires.php';
+$tituloPagina = 'Perfil | Valhalla Gaming'; 
+require_once 'partials/head.php';
+require_once 'partials/nav-bar.php';
+$theUser = $_SESSION['user'];
+var_dump ($theUser)
+?>
 
     <h3>Perfil de usuario</h3>
     <!-- imagen de perfil con datos del usuario -->
+    
     <div class="card mx-auto" style="width: 18rem;">
       <img class="card-img-top" src="images/cara-vikingo.jpg">
       <div class="card-body">
-        <p class="card-text misLetrasRojas text-center">Nombre de usuario</p>
+        <p class="card-text misLetrasRojas text-center"><?= $theUser['name'] ?></p>
       </div>
   </div>
 
