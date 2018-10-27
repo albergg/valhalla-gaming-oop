@@ -34,8 +34,13 @@
 	if ($_POST) {
 		if ($form->isValid()) {
 			// creo un objeto de usuario
-			// creo un objeto de modelo
+			$user = new User($param1);
+
+			// opcional : creo un objeto de modelo
+			
+
 			// le digo al modelo que guarde el user
+			$userRepo::save($user);
 		}
 		$errors = $form->getErrors();
 		
