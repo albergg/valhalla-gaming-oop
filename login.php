@@ -3,6 +3,7 @@ require_once 'registrer-controls.php';
 require_once 'requires.php';
 
 use \VG\Forms\UserLoginForm;
+use \VG\Forms\User;
 
 if ( isLogged() ) {
 	header('location: perfil.php');

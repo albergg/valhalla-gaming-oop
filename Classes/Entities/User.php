@@ -110,10 +110,37 @@ class User
 
     
     // metodo verify password
+    // verifica que el password ingresado coincida con el hash del password con password_verify
+    public function verifyPassword ($password) {
+    return password_verify ($password, $this->password);
+    }
+    // metodos getters
 
+    // trae el id
+    public function getId (){
+        return $this->id;
+    }
+    // trae el nombre
+    public function getName (){
+        return $this->name;
+    }
+    // trae el username
+    public function getUsername (){
+        return $this->username;
+    }
     
+    // trae el password
+    public function getPassword (){
+        return $this->password;
+    }
+    // trae el pais
+    public function getCountry (){
+        return $this->country;
+    }
+
 }
 
-// metodos getters
+
+
 
 ?>

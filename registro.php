@@ -3,7 +3,9 @@
 	require_once 'registrer-controls.php';
 	require_once 'requires.php';
 
+	use \VG\Forms\Form;
 	use \VG\Forms\UserRegistrerForm;
+	use \VG\Forms\User;
 
 	if ( isLogged() ) {
 		header('location: perfil.php');
@@ -42,7 +44,8 @@
 			// le digo al modelo que guarde el user
 			$userRepo::save($user);
 		}
-		$errors = $form->getErrors();
+		$errors = $form->getAllerrors();
+
 		
 		// $errors = validateRegistrerForm($_POST, $_FILES);
 		/*
@@ -73,7 +76,7 @@
 					value="<?= $form->getName(); ?>">
 					<?php if ($form->fieldHasErrors('name')): ?>
 					<div class="alert alert-danger">
-						<?= $form->getFieldErrors('name') ?>
+						<?= $form->getFieldError('name') ?>
 					</div>
 				<?php endif; ?>
 				</div>
@@ -88,7 +91,7 @@
 						value="<?= $form->getEmail(); ?>">
 					<?php if ($form->fieldHasErrors('email')): ?>
 					<div class="alert alert-danger">
-						<?= $form->getFieldErrors('email') ?>
+						<?= $form->getFieldError('email') ?>
 					</div>
 				<?php endif; ?>
 				</div>
@@ -101,7 +104,7 @@
 					value="<?= $form->getUsername(); ?>">
 					<?php if ($form->fieldHasErrors('username')): ?>
 					<div class="alert alert-danger">
-						<?= $form->getFieldErrors('username') ?>
+						<?= $form->getFieldError('username') ?>
 					</div>
 				<?php endif; ?>
 				</div>
@@ -116,7 +119,7 @@
 						placeholder="Ingrese la contraseña" >
 						<?php if ($form->fieldHasErrors('password')): ?>
 					<div class="alert alert-danger">
-						<?= $form->getFieldErrors('password') ?>
+						<?= $form->getFieldError('password') ?>
 					</div>
 				<?php endif; ?>
 				</div>
@@ -131,7 +134,7 @@
 						placeholder="Repita la contraseña">
 						<?php if ($form->fieldHasErrors('password')): ?>
 					<div class="alert alert-danger">
-						<?= $form->getFieldErrors('password') ?>
+						<?= $form->getFieldError('password') ?>
 					</div>
 				<?php endif; ?>
 				</div>
@@ -148,7 +151,7 @@
 					</select>
 					<?php if ($form->fieldHasErrors('country')): ?>
 					<div class="alert alert-danger">
-						<?= $form->getFieldErrors('country') ?>
+						<?= $form->getFieldError('country') ?>
 					</div>
 				<?php endif; ?>
 				</div>
@@ -161,7 +164,7 @@
 					<label class="custom-file-label">Selecciona una imagen</label>
 					<?php if ($form->fieldHasErrors('image')): ?>
 						<div class="alert alert-danger">
-							<?= $form->getFieldErrors('image') ?>
+							<?= $form->getFieldError('image') ?>
 						</div>
 					<?php endif; ?>
 				</div>

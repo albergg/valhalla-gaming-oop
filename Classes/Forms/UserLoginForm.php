@@ -1,7 +1,8 @@
 <?php 
 namespace VG\Forms;
 
-class UserLoginForm {
+class UserLoginForm extends	Form 
+{
 
     /**
      * @var array

@@ -1,7 +1,8 @@
 <?php 
     namespace VG\Forms;
 
-    class UserRegistrerForm {
+    class UserRegistrerForm extends Form 
+    {
  
         /**
          * @var array
@@ -73,74 +74,74 @@
             
             // validacion de nombre
             if (empty($this->name)) {
-                $this->errors['name'] = 'Escribe tu nombre completo';
+                $this->addError('name' , 'Escribe tu nombre completo');
             }
             // validacion de email
             if ( empty($this->email) ) {
-                    $this->errors['email'] = 'Escribe tu correo electrónico';
+                    $this->addError('email' , 'Escribe tu correo electrónico');
             } else if ( !filter_var($this->email, FILTER_VALIDATE_EMAIL) ){
-                    $this->errors['email'] = 'Escribe un correo válido';
+                    $this->addError('email' , 'Escribe un correo válido');
             } else if (emailExist($this->email) ) {
-                    $this->errors['email'] = 'Ese email ya fue registrado';
+                    $this->addError('email' , 'Ese email ya fue registrado');
             }
 
             // validacion de nombre de usuario
             if (empty($this->username)) {
-                $this->errors['username'] = 'El nombre de usuario no puede estar vacio';
+                $this->addError('username' , 'El nombre de usuario no puede estar vacio');
             } elseif ( strlen($this->username) <6 ) {
-                $this->errors['username'] = 'El usuario debe de contener minimo 6 caracteres';
+                $this->addError('username' , 'El usuario debe de contener minimo 6 caracteres');
             } else if (userExist($this->username) ) {
-                $this->errors['username'] = 'Ese usuario ya fue registrado';
+                $this->addError('username' , 'Ese usuario ya fue registrado');
             }
 
             // validacion de passwords
             if ( empty($this->password) || empty($this->repeatPassword) ) {
-                $this->errors['password'] = 'La contraseña no puede estar vacía';
+                $this->addError('password' , 'La contraseña no puede estar vacía');
             } elseif ( $this->password != $this->repeatPassword) {
-                $this->errors['password'] = 'Las contraseñas no coinciden';
+                $this->addError('password' , 'Las contraseñas no coinciden');
             } elseif ( strlen($this->password) < 4 || strlen($this->repeatPassword) < 4 ) {
-                $this->errors['password'] = 'La contraseña debe tener minimo 4 caracteres';
+                $this->addError('password' , 'La contraseña debe tener minimo 4 caracteres');
             }
 
             // validacion de pais
             if ( empty($this->country) ) {
-                $this->errors['country'] = 'Selecciona un país';
+                $this->addError('country' , 'Selecciona un país');
             }
 
             // validacion de avatar
             if ( $this->avatar['error'] !== UPLOAD_ERR_OK ) {
-                $this->errors['image'] = 'Debes de subir una imagen';
+                $this->addError('image', 'Debes de subir una imagen');
             } else {
                 $ext = pathinfo($this->avatar['name'], PATHINFO_EXTENSION);
                 if ( !in_array($ext, ALLOWED_IMAGE_TYPES) ) {
-                    $this->errors['image'] = 'Formato de imagen no valido';
+                    $this->addError('image', 'Formato de imagen no valido');
                 }
             }
 
-            return empty($this->errors);
+            return empty($this->getAllerrors());
         }
 
         // funcion getErrors
 
-        // getters
-        public function getErrors() {
-            return $this->errors;
-        } 
+        // // getters
+        // public function getErrors() {
+        //     return $this->errors;
+        // } 
 
-        public function fieldHasErrors($field) {
-            return isset($this->errors[$field]);
-        } 
+        // public function fieldHasErrors($field) {
+        //     return isset($this->errors[$field]);
+        // } 
 
-        public function getFieldErrors($field) {
-            /*
-            if (isset($this->errors[$field])) {
-                return $this->errors[$field];
-            } else {
-                return false;
-            }
-            */
-            return $this->errors[$field] ?? false;
-        } 
+        // public function getFieldErrors($field) {
+        //     /*
+        //     if (isset($this->errors[$field])) {
+        //         return $this->errors[$field];
+        //     } else {
+        //         return false;
+        //     }
+        //     */
+        //     return $this->errors[$field] ?? false;
+        // } 
 
         public function getName() {
             return $this->name;
