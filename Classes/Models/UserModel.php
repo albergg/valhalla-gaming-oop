@@ -14,7 +14,7 @@ class UserModel {
     /**
      * @var string Descripción
      */
-    private $db_name = 'valhala_gaming';
+    private $db_name = 'valhalla_gaming';
 
     /**
      * @var string Descripción
@@ -43,14 +43,14 @@ class UserModel {
 		    echo $exception->getMessage();
 	    }
     }
-
+    
     public function insert(User $user) {
         // statement
         // insert into user values ...
         // bind value
         // :name $user->getName
 
-    };
+    }
 
     // public function update();
 
@@ -62,7 +62,7 @@ class UserModel {
 			FROM movies
 			WHERE title LIKE '%{$searchQuery}%'
 		");
-    };
+    }
 
     public function fetchAll();
 

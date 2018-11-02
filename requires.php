@@ -1,12 +1,12 @@
 <?php 
 
 // Databases
-require_once 'Databases/Database.php';
-require_once 'Databases/MySQLDatabase.php';
+// require_once 'Databases/Database.php';
+// require_once 'Databases/MySQLDatabase.php';
 
 // Entities
 
-require_once 'Entities/User.php';
+// require_once 'Classes/Entities/User.php';
 
 // Forms
 require_once 'Classes/Forms/Form.php';

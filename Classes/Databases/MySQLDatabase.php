@@ -54,7 +54,7 @@ class MySQLDatabase implements Database {
 			FROM movies
 			WHERE title LIKE '%{$searchQuery}%'
 		");
-    };
+    }
 
     public function fetchAll();
 
